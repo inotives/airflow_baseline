@@ -1,4 +1,4 @@
-# data_collectors
+# airflow_baseline
 
 This is an Airflow project that bootstraps some commonly used libraries in data-related tasks, such as pandas, numpy, and BeautifulSoup (bs4). The purpose of this project is to demonstrate how to use Airflow to automate tasks using these libraries while keeping the code DRY by utilizing models and DAG factory functions. All the data are then stored to postgres DB using SQLAlchemy and psycopg2. 
 
@@ -41,7 +41,7 @@ docker build . --tag extending_airflow:latest
 - One thing to take note of would the on the host, you cant use localhost since you are accessing the dockerize postgres in another docker container. Hence on the host name, you will need to use the alias of the postgres container e.q. `dag_basedry-postgres-1`
 
 
-### running backfill for data
+### running backfill for data using airflow
 
 - First look for airflow-scheduler container in docker 
 - Go into airflow-scheduler container bash
@@ -51,4 +51,7 @@ docker exec -it <container_id> bash
 - run the airflow backfill command
 ```
 airflow dags backfill -s 2024-01-01 -e 2024-01-31 <dag_id>
+
+e.q: 
+airflow dags backfill -s 2024-01-01 -e 2024-01-31 crawl_data_from_site_store2db
 ```
